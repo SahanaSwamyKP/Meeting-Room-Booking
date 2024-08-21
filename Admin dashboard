@@ -1,0 +1,72 @@
+<div class="container">
+  <header>
+    <h1>FIDELITY NATIONAL FINANCIAL</h1>
+  </header>
+
+  <div class="content">
+    <h2>Welcome Admin!!!</h2>
+    <button routerLink="/employee-details">Employee Details</button>
+    <button routerLink="/room-details">Room Details</button>
+    <button routerLink="/slot-history">Slot History</button>
+  </div>
+
+  <footer>
+    <p>Footer Content Here</p>
+  </footer>
+</div>
+
+
+
+
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
+import { RoomDetailsComponent } from './room-details/room-details.component';
+import { SlotHistoryComponent } from './slot-history/slot-history.component';
+
+const routes: Routes = [
+  { path: 'employee-details', component: EmployeeDetailsComponent },
+  { path: 'room-details', component: RoomDetailsComponent },
+  { path: 'slot-history', component: SlotHistoryComponent },
+  { path: '', redirectTo: '/employee-details', pathMatch: 'full' }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+
+
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+header, footer {
+  width: 100%;
+  text-align: center;
+  background-color: #f8f8f8;
+  padding: 10px 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
