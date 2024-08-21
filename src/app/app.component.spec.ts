@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'Login_SignUp_LocalStorage' title`, () => {
+  it(`should have the 'room-booking-app' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Login_SignUp_LocalStorage');
+    expect(app.title).toEqual('room-booking-app');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Login_SignUp_LocalStorage');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, room-booking-app');
   });
 });

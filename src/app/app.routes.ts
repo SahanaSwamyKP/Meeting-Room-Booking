@@ -1,17 +1,16 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from './Pages/layout/layout.component';
-import { DashboardComponent } from './Pages/dashboard/dashboard.component';
-import { LoginComponent } from './Pages/login/login.component';
+import { RoomListComponent } from './components/room-list/room-list.component';
+import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { LogoutComponent } from './logout/logout.component';
+
 
 export const routes: Routes = [
 
-    {
-    path:'',
-    redirectTo: 'loginsignup',
-    pathMatch: 'full'
-    },
-    {
-        path: 'loginsignup',
-        component: LoginComponent
-    }
-];
+    { path: 'rooms', component: RoomListComponent },
+  { path: 'my-bookings', component: MyBookingsComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
+  { path: 'logout', component: LogoutComponent },
+  { path: '', redirectTo: '/rooms', pathMatch: 'full' },
+  { path: '**', redirectTo: '/rooms', pathMatch: 'full' }
+  ];

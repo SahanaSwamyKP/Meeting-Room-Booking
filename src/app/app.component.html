@@ -1,1 +1,26 @@
+<div class="heading d-flex align-items-center justify-content-between" id="heading">
+    <img src="https://fnf.com/FNF/media/media/images/FNF_Logo_White.png" alt="image" class="logo">
+    <div class="d-flex">
+      <ul class="navbar-nav d-flex flex-row align-items-center">
+        <li class="nav-item">
+          <button class="btn nav-link" [routerLink]="['/rooms']">Room Booking</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn nav-link" [routerLink]="['/my-bookings']">My Bookings</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn nav-link" [routerLink]="['/change-password']">Change Password</button>
+        </li>
+        <li class="nav-item">
+          <button  class="btn btn-primary" [routerLink]="['/logout']">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+
 <router-outlet></router-outlet>
+
+<div class="footer">
+    &copy; Copyright (c) 1998, 2022, Oracle and/or its affiliates. All rights reserved.
+</div>
