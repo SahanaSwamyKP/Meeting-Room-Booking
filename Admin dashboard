@@ -70,3 +70,21 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
+
+
+
+<!-- src/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FidelityApp</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
