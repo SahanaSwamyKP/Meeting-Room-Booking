@@ -1,0 +1,48 @@
+#heading {
+    background: #0e4b6e;
+    color: white;
+}
+
+.button {
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+button:hover {
+    color: #328ec4;
+
+}
+
+.ul {
+    text-align: right;
+}
+
+.heading {
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    /* Background color, can be changed as needed */
+}
+
+.logo {
+    max-height: 50px;
+    /* Adjust the height to fit nicely in the header */
+}
+
+.navbar-nav .nav-link {
+    margin-left: 15px;
+    /* Space between buttons */
+}
+
+.navbar-nav {
+    margin-right: 15px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #0e4b6e;
+    color: white;
+    text-align: center;
+}
