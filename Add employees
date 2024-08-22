@@ -1,0 +1,34 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Employee Registration</h2>
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="role">Role</label>
+      <input type="text" class="form-control" id="role" placeholder="Enter role">
+    </div>
+    <div class="form-group">
+      <label for="available">Available</label>
+      <input type="text" class="form-control" id="available" placeholder="Enter availability">
+    </div>
+    <div class="form-group">
+      <label for="department">Department</label>
+      <input type="text" class="form-control" id="department" placeholder="Enter department">
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Add Employee</button>
+  </form>
+</div>
+
+
+
+"styles": [
+  "src/styles.css",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+"scripts": []
