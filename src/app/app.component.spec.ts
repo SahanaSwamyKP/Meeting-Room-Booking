@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'room-booking-app' title`, () => {
+  it(`should have the 'AdminPage' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('room-booking-app');
+    expect(app.title).toEqual('AdminPage');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, room-booking-app');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, AdminPage');
   });
 });

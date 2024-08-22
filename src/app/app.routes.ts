@@ -1,17 +1,21 @@
-import { Routes } from '@angular/router';
-import { RoomListComponent } from './components/room-list/room-list.component';
-import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { LogoutComponent } from './components/logout/logout.component';
-
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
+import { RoomDetailsComponent } from './room-details/room-details.component';
+import { SlotHistoryComponent } from './slot-history/slot-history.component';
+import { AdminComponent } from './admin/admin.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/admin', pathMatch: 'full' },
+  { path: 'admin', component: AdminComponent },
+  { path: 'employee-details', component: EmployeeDetailsComponent },
+  { path: 'room-details', component: RoomDetailsComponent },
+  { path: 'slot-history', component: SlotHistoryComponent },
+  // {path: 'AdminPage', },
+];
 
-    { path: 'rooms', component: RoomListComponent },
-  { path: 'my-bookings', component: MyBookingsComponent },
-  { path: 'change-password', component: ChangePasswordComponent },
-  { path: 'logout', component: LogoutComponent },
-
-  { path: '', redirectTo: '/rooms', pathMatch: 'full' },
-  { path: '**', redirectTo: '/rooms', pathMatch: 'full' }
-  ];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
