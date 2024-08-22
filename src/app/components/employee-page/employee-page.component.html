@@ -1,0 +1,61 @@
+<app-header></app-header>
+<div class="container mt-4">
+    <h1>Welcome! {{data.empName}}</h1>
+    <h2 class="text-center">Select Your Meeting Room</h2>
+    <!-- <form class="row g-3" (ngSubmit)="onSearch()"  #roomForm="ngForm">
+  
+      <div class="col-md-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" class="form-control" id="date" [(ngModel)]="date" name="date" required  #dateInput="ngModel"/>
+        <div *ngIf="dateInput.invalid && dateInput.touched" class="text-danger">
+          Date is required.
+        </div>
+      </div>
+  
+      <div class="col-md-3">
+        <label for="startTime" class="form-label">Start Time</label>
+        <input type="time" class="form-control" id="starttime" [(ngModel)]="starttime" name="starttime" required  #startTimeInput="ngModel"/>
+        <div *ngIf="startTimeInput.invalid && startTimeInput.touched" class="text-danger">
+          Start Time is required.
+        </div>
+      </div> -->
+  
+      <!-- <div class="col-md-3">
+        <label for="endTime" class="form-label">End Time</label>
+        <input type="time" class="form-control" id="endtime" [(ngModel)]="endtime" name="endtime" required  #endTimeInput="ngModel">
+        <div *ngIf="endTimeInput.invalid && endTimeInput.touched" class="text-danger">
+          End Time is required.
+        </div>
+      </div>
+  
+      <div class="col-md-3">
+        <label for="capacity" class="form-label">Capacity</label>
+        <input type="number" class="form-control" id="capacity" [(ngModel)]="capacity" name="capacity" placeholder="Capacity" required   #capacityInput="ngModel">
+        <div *ngIf="capacityInput.invalid && capacityInput.touched" class="text-danger">
+          Capacity is required.
+      </div>
+      </div>
+      <div class="col-12" style="text-align: center;">
+        <button type="submit" class="btn btn-primary"  >Search</button>
+      </div>
+    </form> -->
+  
+   
+  
+    <table class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th scope="col">Room Name</th>
+          <th scope="col">Capacity</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <!-- <tbody>
+        <tr *ngFor="let room of rooms">
+          <td>{{ room.name }}</td>
+          <td>{{ room.capacity }}</td>
+          <td><button class="btn btn-success" (click)="bookRoom(room.id)">Book</button></td>
+        </tr>
+      </tbody> -->
+    </table>
+<app-footer></app-footer>
