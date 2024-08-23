@@ -1,0 +1,24 @@
+<div class="container mt-4">
+    <h2>Slot History</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Employee Name</th>
+          <th scope="col">Room Name</th>
+          <th scope="col">Date</th>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings">
+          <td>{{ booking.employeeName }}</td>
+          <td>{{ booking.roomName }}</td>
+          <td>{{ booking.date }}</td>
+          <td>{{ booking.startTime }}</td>
+          <td>{{ booking.endTime }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

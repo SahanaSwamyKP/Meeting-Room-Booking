@@ -1,0 +1,30 @@
+<div class="container">
+   
+
+    <div class="room-details">
+        <h2>Room Details!!!</h2>
+        <button class="add-button"  [routerLink]="['/add-room']">ADD Room</button><hr>
+        <table>
+          <thead>
+            <tr>
+              <th>Room ID</th>
+              <th>Room Name</th>
+              <th>Capacity</th>
+              <th>Available</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let room of rooms">
+              <td>{{ room.id }}</td>
+              <td>{{ room.name }}</td>
+              <td>{{ room.capacity }}</td>
+              <td>{{ room.available ? 'Yes' : 'No' }}</td>
+              <td>
+                <button  [routerLink]="['/edit-room']">Edit</button>
+                <button (click)="deleteRoom(room)">Delete</button>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
