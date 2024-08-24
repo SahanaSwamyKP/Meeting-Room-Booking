@@ -1,0 +1,34 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="container mt-5">
+      <h2 class="mb-4">Employee Registration</h2>
+      <form>
+          <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" [(ngModel)]="employee.empName" name="name" class="form-control" id="name"
+                  placeholder="Enter name">
+          </div>
+          <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" [(ngModel)]="employee.empEmail" name="email" class="form-control" id="email"
+                  placeholder="Enter email">
+          </div>
+          <div class="form-group">
+              <label for="role">Role</label>
+              <input type="text" [(ngModel)]="employee.empRole" name="role" class="form-control" id="role"
+                  placeholder="Enter role">
+          </div>
+          <div class="form-group">
+              <label for="available">Available</label>
+              <input type="text" class="form-control" name="available" id="available" placeholder="Enter availability"
+                  [(ngModel)]="employee.available">
+          </div>
+          <div class="form-group">
+              <label for="password">Password</label>
+              <input type="text" [(ngModel)]="employee.empPassword" name="password" class="form-control" id="password"
+                  placeholder="Enter Password">
+          </div>
+          <button (click)="onSubmit()" type="submit" class="btn btn-primary mt-3">Add
+              Employee</button>
+      </form>
+  </div>
+</form>
