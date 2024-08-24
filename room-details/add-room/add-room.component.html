@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSubmit()">
+    <div class="container mt-5">
+        <h2 class="mb-4">Room Registration</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Room Name</label>
+                <input type="text" [(ngModel)]="room.roomName" name="name" class="form-control" id="name"
+                    placeholder="Enter Room name">
+            </div>
+            <div class="form-group">
+                <label for="capacity">Capacity</label>
+                <input type="email" [(ngModel)]="room.capacity" name="capacity" class="form-control" id="capacity"
+                    placeholder="Enter Capacity">
+            </div>
+            <div class="form-group">
+                <label for="available">Available</label>
+                <input type="text" [(ngModel)]="room.available" name="available" class="form-control" id="available"
+                    placeholder="Availability">
+            </div>
+        
+
+            <button (click)="onSubmit()" type="submit" class="btn btn-primary mt-3">Add
+                Room</button>
+        </form>
+    </div>
+  </form>
+  
