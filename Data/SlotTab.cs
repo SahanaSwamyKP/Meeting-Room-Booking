@@ -37,17 +37,17 @@ namespace MeetingsAPI.Data
             this.SlotId = slot.SlotId;
             this.RoomId = slot.RoomId;
             this.EmpId = slot.EmpId;
-            this.Date = slot.Date;
+            this.Date = DateOnly.FromDateTime(slot.Date);
             this.Active = slot.Active;
-            this.STime = slot.STime;
-            this.ETime = slot.ETime;
+            this.STime = TimeOnly.FromDateTime(slot.STime);
+            this.ETime = TimeOnly.FromDateTime(slot.ETime);
 
 			EmpTab? emp = new EmpTab();
-			emp.EmpMap(slot.Emp);
+			if(slot.Emp!=null) emp.EmpMap(slot.Emp);
 			this.Emp = emp;
 
 			RoomTab? room = new RoomTab();
-			room.RoomMap(slot.Room);
+			if(slot.Room!=null) room.RoomMap(slot.Room);
 			this.Room = room;
 
 		}
