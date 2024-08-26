@@ -13,29 +13,53 @@ namespace MeetingsAPI.Controllers
 		private readonly ProjectContext _projectContext;
 		public SlotsController(ProjectContext projectContext, SlotServices slotServices) { this.slotServices = slotServices; this._projectContext = projectContext; }
 
-
+		private List<RoomDto> _rooms = new List<RoomDto>();
 		[HttpGet]
-		public List<SlotDto> GetSlots()
+		public IActionResult GetSlots()
 		{
-			return slotServices.GetSlots();
+			return new JsonResult(slotServices.GetSlots());
 		}
-
-		[HttpGet]
-		[Route("Available")]
-		public IActionResult GetSlotsAvailable(DateOnly date,TimeOnly stime,TimeOnly etime)
+		[HttpPost]
+		[Route("SearchRoom")]
+		public IActionResult GetRoomSlots(RoomDto room)
 		{
-			
-			var slot = _projectContext.SlotTabs.ToList();
-			List<SlotTab> tabs = new List<SlotTab>();
-			foreach (var x in slot)
+			List<SlotDto> slots;
+			try
 			{
-				if(x.Date == date && (stime >= x.STime && stime <= x.ETime) && x.Active == true)
-				{
-					tabs.Add(x);
-				}
+				slots=this.slotServices.GetSlotsByRoom(room);
 			}
-			return Ok("Yet To Do");
+			catch (Exception ex)
+			{
+				return new JsonResult(ex.Message);
+			}
+			return new JsonResult(slots);
 		}
+
+
+		[HttpPost]
+		[Route("Search")]
+		public IActionResult GetUnavailable(SlotDto slotDto)
+		{
+			_rooms.Clear();
+			try
+			{
+				this.slotServices.GetUnavailable(slotDto);
+			}
+			catch (Exception ex)
+			{
+				return new JsonResult(ex.Message);
+			}
+
+
+			return new JsonResult("Towards SlotBooking");
+		}
+		[HttpPut]
+		public IActionResult DeleteSlot(SlotDto slotDto)
+		{
+			this.slotServices.delete(slotDto);
+			return new JsonResult("Updated");
+		}
+		
 		[HttpPost]
 		public IActionResult AddSlots(SlotDto slotDto)
 		{
@@ -45,10 +69,10 @@ namespace MeetingsAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return new JsonResult(ex.Message);
 			}
 
-			return Ok("Slot Booked");
+			return new JsonResult("Slot Booked");
 		}
 	}
 }
