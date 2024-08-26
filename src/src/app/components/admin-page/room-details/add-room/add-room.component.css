@@ -1,0 +1,50 @@
+.container1 {
+    max-width: 800px;
+    margin: 30px auto 10px auto;
+    padding: 40px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: 20px 40px 20px 20px rgba(0, 0, 0, 0.1);
+}
+ 
+.container {
+    padding: 20px;
+  }
+ 
+  /* Header styling */
+  h2 {
+    font-size: 24px;
+    color: #333;
+  }
+ 
+  /* Form styling */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+ 
+  .form-label {
+    font-weight: 600;
+    margin-bottom: .5rem;
+  }
+ 
+  .form-control {
+    border-radius: .25rem;
+    border: 1px solid #ced4da;
+  }
+ 
+  .form-select {
+    border-radius: .25rem;
+    border: 1px solid #ced4da;
+  }
+ 
+  /* Button styling */
+  .btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    border-color: #007bff;
+  }
+ 
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+    border-color: #004085;
+  }
+ 

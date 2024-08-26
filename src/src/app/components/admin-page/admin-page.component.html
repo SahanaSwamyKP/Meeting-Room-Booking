@@ -1,0 +1,21 @@
+<app-header></app-header>
+<div class="admin-container">
+  <h2>Welcome to Admin Dashboard!! {{emp.empName}} </h2>
+  <div class="admin-option">
+    <button [routerLink]="['employee-details']">Employee Details</button>
+  </div>
+  <div class="admin-option">
+    <button [routerLink]="['room-details']">Room Details</button>
+  </div>
+  <div class="admin-option">
+    <button [routerLink]="['slot-history']">Slot History</button>
+  </div>
+  <div class="admin-option">
+    <button [routerLink]="['/employee-page']">Book a Slot</button>
+  </div>
+  <div class="admin-option">
+    <button [routerLink]="['/employee-page/change-password']">Change Password</button>
+  </div>
+</div>
+<app-footer></app-footer>
+ 
