@@ -1,0 +1,47 @@
+<app-header></app-header>
+<div class="container mt-5">
+  <div class="employee-details">
+    <div class="heading d-flex align-items-center justify-content-between" id="heading">
+      <h2>Employees Details!!!</h2>
+      <div class="d-flex">
+        <ul class="navbar-nav d-flex flex-row align-items-center">
+          <li class="nav-item">
+            <button class="add-button" [routerLink]="['/add-employee']">
+              <i class="fas fa-user-plus"></i> ADD Employee
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <hr />
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>EmpID</th>
+          <th>EmpName</th>
+          <th>EmpRole</th>
+          <th>EmpEmail</th>
+          <th>Available</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{ employee.empId }}</td>
+          <td>{{ employee.empName }}</td>
+          <td>{{ employee.empRole }}</td>
+          <td>{{ employee.empEmail }}</td>
+          <td>{{ employee.available ? 'Yes' : 'No' }}</td>
+          <td>
+            <button class="edit-button btn btn-primary btn-sm" [routerLink]="['/edit-employee', employee.empId]">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-footer></app-footer>
