@@ -1,0 +1,40 @@
+
+
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th, td {
+padding: 10px;
+border: 1px solid #ddd;
+}
+
+.emp-ops{
+    width: 50%;
+    display: flex;
+}
+.container{
+    margin-bottom: 100px;
+}
+#dinput{
+    max-width: 1200px;
+    margin: 30px auto 10px auto;
+    padding: 40px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: 20px 20px 20px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tabSlot{
+    
+    max-width: 1200px;
+    margin: 30px auto 10px auto;
+    padding: 40px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: 20px 20px 20px 20px rgba(0, 0, 0, 0.1);
+}
+.room-details{
+    margin: 40px 40px 40px 40px;
+}

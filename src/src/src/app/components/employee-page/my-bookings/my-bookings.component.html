@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div class="employee-details">
+    <div class="slot-upper">
+        <h2>{{this.user.empName}}'s Bookings</h2>
+        <pre>                  </pre>
+        <div class="text-end">
+            <h2 class="high">{{cur_date}},       {{cur_time}}</h2>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Room Name</th>
+                <th>booked by</th>
+                <th>Booking Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- #FFFFA7 - pale yellow, #98FB98 - pale green, #E78587 - pale red -->
+            <tr *ngFor="let slot of EmpSlots" [ngStyle]="{'background-color': slot.active?(cur_date==slot.date)?(cur_time>slot.sTime)?(cur_time>slot.eTime)?'#E78587':'#98FB98':'#FFFFA7':(cur_date>slot.date)?'#E78587':'#FFFFA7':'#E78587'}">
+                <td *ngIf="slot.room!=null">{{slot.room.roomName}}</td>
+                <td>{{slot.emp?.empName}}</td>
+                <td>{{slot.date}}</td>
+                <td>{{slot.sTime}}</td>
+                <td>{{slot.eTime}}</td>
+                <td>{{slot.active?(cur_date==slot.date)?(cur_time>slot.sTime)?(cur_time>slot.eTime)?'Ended':'Ongoing':'Upcoming':(cur_date>slot.date)?'Ended':'Upcoming':'Ended'}}</td>
+                <td *ngIf="slot.active==true"><button class="btn btn-danger" (click)="OnDelete(slot.slotId)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<app-footer></app-footer>

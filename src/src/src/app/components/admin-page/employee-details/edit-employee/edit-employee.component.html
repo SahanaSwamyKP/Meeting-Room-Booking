@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div class="container mt-5 form-container">
+  <h2 class="mb-4 text-center">Edit your Details</h2>
+  <form (ngSubmit)="onSave()">
+    <div *ngIf="employee" class="form-group">
+      <label for="id">ID</label>
+      <input type="text" id="id" [(ngModel)]="employee.empId" name="id" class="form-control" disabled>
+    </div>
+    <div *ngIf="employee" class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" [(ngModel)]="employee.empName" name="name" class="form-control">
+    </div>
+    <div *ngIf="employee" class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" [(ngModel)]="employee.empEmail" name="email" class="form-control">
+    </div>
+    <div *ngIf="employee" class="form-group">
+      <label for="role">Role</label>
+      <select type="text" id="role" [(ngModel)]="employee.empRole" name="role" class="form-control">
+        <option value="Admin">Admin</option>
+        <option value="Employee">Employee</option>
+      </select>
+    </div>
+    <div *ngIf="employee" class="form-group">
+      <label for="Password">Confirm Password</label>
+      <input type="password" placeholder="Enter password To confirm changes" [(ngModel)]="employee.empPassword" name="role" class="form-control">
+    </div>
+    <!-- <div *ngIf="employee" class="form-group">
+      <label for="available">Available</label>
+      <input type="text" id="available" [(ngModel)]="employee.available" name="available" class="form-control">
+    </div> -->
+
+    <div class="form-group mb-3">
+      <label for="available" class="form-label">Available:</label>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" [(ngModel)]="employee.available" name="available" class="custom-control-input" id="available" />
+        <label class="custom-control-label" for="available"></label>
+      </div>
+    </div>
+
+    <button type="submit" (click)="onSave()" class="btn btn-primary mt-3 w-100">Save Changes</button>
+  </form>
+</div>
+
+<app-footer></app-footer>
