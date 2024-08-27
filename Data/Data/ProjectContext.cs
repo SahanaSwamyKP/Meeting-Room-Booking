@@ -36,6 +36,7 @@ public partial class ProjectContext : DbContext
             entity.Property(e => e.EmpName).HasMaxLength(50);
             entity.Property(e => e.EmpPassword).HasMaxLength(100);
             entity.Property(e => e.EmpRole).HasMaxLength(10);
+            entity.Property(e => e.EmpId).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<RoomTab>(entity =>
@@ -45,6 +46,7 @@ public partial class ProjectContext : DbContext
             entity.ToTable("RoomTab");
 
             entity.Property(e => e.RoomName).HasMaxLength(50);
+            entity.Property(e => e.RoomId).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<SlotTab>(entity =>
@@ -59,11 +61,11 @@ public partial class ProjectContext : DbContext
 
             entity.HasOne(d => d.Emp).WithMany(p => p.SlotTabs)
                 .HasForeignKey(d => d.EmpId)
-                .HasConstraintName("FK__SlotTab__EmpId__3D5E1FD2");
+                .HasConstraintName("FK__SlotTab__EmpId__48CFD27E");
 
             entity.HasOne(d => d.Room).WithMany(p => p.SlotTabs)
                 .HasForeignKey(d => d.RoomId)
-                .HasConstraintName("FK__SlotTab__RoomId__3E52440B");
+                .HasConstraintName("FK__SlotTab__RoomId__4AB81AF0");
         });
 
         OnModelCreatingPartial(modelBuilder);
