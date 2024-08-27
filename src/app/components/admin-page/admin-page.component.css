@@ -1,0 +1,110 @@
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px; /* Adjust this value as needed to control the spacing from the top */
+    
+    max-width: 800px;
+    margin: 30px auto 10px auto;
+    padding: 40px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: 40px 40px 40px 40px rgba(0, 0, 0, 0.1);
+}
+ 
+.admin-option {
+    margin: 15px 0;
+    width: 100%;
+    max-width: 300px; /* Adjust as needed */
+    text-align: center;
+}
+.admin-option button {
+width: 100%;
+padding: 10px 20px;
+font-size: 18px;
+background-color: #007bff; /* Button background color */
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.admin-option button:hover {
+background-color: #0056b3; /* Darker shade on hover */
+color: black;
+}
+ 
+button {
+    padding-left: 10px;
+    margin-top: 10px;
+}
+ 
+button:hover {
+    color: #328ec4;
+}
+
+.admin-background {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Hide overflowing content */
+}
+ 
+.admin-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    animation: slideImages 40s infinite; /* Animation for sliding images */
+}
+ 
+/* Add your own images to this list */
+@keyframes slideImages {
+    0% { background-image: url('https://plus.unsplash.com/premium_photo-1661510087854-bcc116f910da?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }
+    25% { background-image: url('https://images.unsplash.com/photo-1552581234-26160f608093?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }
+    50% { background-image: url('https://images.unsplash.com/photo-1679205691826-9157415559c2?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }
+    75% { background-image: url('https://plus.unsplash.com/premium_photo-1661510229685-9fa370f419f7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }
+    100% { background-image: url('https://plus.unsplash.com/premium_photo-1723823034961-4cbd89295d45?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }
+}
+ 
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto; /* Center the container vertically and horizontally */
+    padding: 30px;
+    width: 80%; /* Adjust the width to your preference */
+    max-width: 600px; /* Limit the maximum width */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow for depth */
+    z-index: 1; /* Ensure it's above the sliding background */
+}
+ 
+.admin-option {
+    margin: 15px 0;
+    width: 100%;
+    text-align: center;
+}
+ 
+.admin-option button {
+    width: 70%;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effects */
+}
+ 
+.admin-option button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}

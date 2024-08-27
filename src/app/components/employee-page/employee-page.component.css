@@ -1,0 +1,112 @@
+body {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    font-family:'Times New Roman', Times, serif;
+  }
+   
+  .main-content {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+   
+  #heading h1 {
+    font-size: 2rem;
+    color: #343a40;
+  }
+   
+  .carousel {
+    margin-top: 20px;
+  }
+   
+  .carousel-inner img {
+    max-height: 400px;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+  }
+   
+  .carousel-caption h5 {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+  }
+   
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+  }
+   
+  .container1 {
+    background-color: #f1f3f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+   
+  .container1 h2 {
+    color: #495057;
+    margin-bottom: 20px;
+  }
+   
+  .form-label {
+    color: #495057;
+  }
+   
+  .form-control {
+    border-radius: 5px;
+  }
+   
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+   
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+  }
+
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th, td {
+padding: 10px;
+border: 1px solid #ddd;
+}
+
+.emp-ops{
+    width: 50%;
+    display: flex;
+}
+.container{
+    margin-bottom: 100px;
+}
+#dinput{
+    max-width: 1200px;
+    margin: 30px auto 10px auto;
+    padding: 40px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: 20px 20px 20px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tabSlot{
+    
+    max-width: 1200px;
+    margin: 30px auto 10px auto;
+    padding: 40px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: 20px 20px 20px 20px rgba(0, 0, 0, 0.1);
+}
+.room-details{
+    margin: 40px 40px 40px 40px;
+}

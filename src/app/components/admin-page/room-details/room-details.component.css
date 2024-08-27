@@ -1,0 +1,70 @@
+/* Center the container content */
+.employee-details {
+  text-align: center;
+}
+ 
+/* Center the Add Room button */
+.d-flex.justify-content-center {
+  justify-content: center !important;
+}
+/* Button group styling */
+.btn-group .btn {
+  padding: 0.25rem 0.5rem; /* Smaller padding for smaller buttons */
+  font-size: 1rem; /* Smaller font size */
+}
+ 
+/* Remove margin-right for the last button in the group */
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+ 
+/* Icon spacing adjustment */
+.btn .fa {
+  margin-right: 5px;
+}
+ 
+/* Adjust button size */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px; /* Set a fixed height for uniformity */
+  color: white;
+}
+.btn:hover{
+  color: rgb(0, 0, 0);
+}
+.btn-group .btn {
+  margin-right: 5px;
+  padding: 0.25rem 0,5rem;
+ 
+}
+ 
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+ 
+/* Button styling */
+.btn {
+  display: inline-flex;
+  align-items: center;
+}
+ 
+.btn .fa {
+  margin-right: 5px;
+}
+ 
+/* Table styling */
+
+  table {
+  width: 100%;
+  border-collapse: collapse;
+  }
+  
+  th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  }
+  .room-container{
+    margin: 20px 0;
+  }

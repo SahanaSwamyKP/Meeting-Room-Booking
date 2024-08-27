@@ -1,0 +1,128 @@
+<app-header></app-header>
+
+<div class="container mt-4">
+  <div class="heading d-flex align-items-center justify-content-between" id="heading">
+    <h1>Welcome! {{emp.empName}}</h1>
+    <div class="d-flex">
+      <ul class="navbar-nav d-flex flex-row align-items-center">
+        <li class="nav-item">
+          <button type="submit" class="btn btn-primary me-2" (click)="goToLink('http://localhost:4200/employee-page/my-bookings')">My Booking</button>
+        </li>
+        <li>
+          <button type="submit" class="btn btn-primary" [routerLink]="['change-password']">Change password</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://th.bing.com/th/id/R.ff3be19ebea75c72d7fd8ac60ea78608?rik=AKHdPWCm7sR53g&riu=http%3a%2f%2fgetwallpapers.com%2fwallpaper%2ffull%2f1%2f8%2f1%2f465351.jpg&ehk=gTiwWaizscf0N%2fARLGhMtzE5LXZk1DMRHhdwFkriXAI%3d&risl=&pid=ImgRaw&r=0" class="d-block w-100" alt="Image 1">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Reserve your rooma and Be Free</h5>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="https://wallpaperaccess.com/full/2889098.jpg" class="d-block w-100" alt="Image 2">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>If plan doesn't work change the plan but never the plan but never the goal</h5>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="https://th.bing.com/th/id/R.d2f44fd6bc04be4984bf7e0dba5ddd55?rik=N8T9oXnSzpAj8g&pid=ImgRaw&r=0" class="d-block w-100" alt="Image 3">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Work like a clock don't sit like a rock</h5>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>
+  
+  <h2 class="text-center">Select Your Meeting Room</h2>
+  <form class="row g-3" id="dinput" (ngSubmit)="onSearch()"  #roomForm="ngForm">
+
+    <div class="col-md-3">
+      <label for="date" class="form-label">Date</label>
+      <input type="date" class="form-control" id="date" [(ngModel)]="date" name="date" required  #dateInput="ngModel"/>
+      <div *ngIf="dateInput.invalid && dateInput.touched" class="text-danger">
+        Date is required.
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="startTime" class="form-label">Start Time</label>
+      <input type="time" class="form-control" id="starttime" [(ngModel)]="stime" name="starttime" required  #startTimeInput="ngModel"/>
+      <div *ngIf="startTimeInput.invalid && startTimeInput.touched" class="text-danger">
+        Start Time is required.
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="endTime" class="form-label">End Time</label>
+      <input type="time" class="form-control" id="endtime" [(ngModel)]="etime" name="endtime" required  #endTimeInput="ngModel">
+      <div *ngIf="endTimeInput.invalid && endTimeInput.touched" class="text-danger">
+        End Time is required.
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="capacity" class="form-label">Capacity</label>
+      <select class="form-control" id="capacity" [(ngModel)]="capacity" name="capacity" required #capacityInput="ngModel">
+        <option value="" disabled selected>Select Capacity</option>
+        <option value=5>5</option>
+        <option value=10>10</option>
+        <option value=15>15</option>
+      </select>
+      <div *ngIf="capacityInput.invalid && capacityInput.touched" class="text-danger">
+        Capacity is required.
+      </div>
+    </div>
+    <div class="col-12" style="text-align: center;">
+      <button type="submit" class="btn btn-primary"  [disabled]="roomForm.invalid">Search</button>
+    </div>
+    <span class="text-danger" id="error"></span>
+  </form>
+</div>
+<div class="tabSlot" *ngIf="!roomForm.invalid">
+  <table>
+      <thead>
+          <tr>
+              <th>Room Name</th>
+              <th>Capacity</th>
+              <th>Availability</th>
+              <th>Options</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let room of validRooms">
+          <td>{{room.roomName}}</td>
+          <td>{{room.capacity}}</td>
+          <td>{{room.available}}</td>
+          <td>
+            <button class="btn btn-warning" *ngIf="room.available" (click)="goToLink('http://localhost:4200/room-slots/'+room.roomId.toString())">View Slots</button>
+            <button class="btn btn-success" *ngIf="room.available" (click)="BookSlot(room.roomId)">Book Slot</button>
+          </td>
+        </tr><tr *ngFor="let room of invalidRooms" style="background-color: #E78587;" [ngStyle]="{'background-color':room.available?'#E78587':'#E78587'}">
+          <td>{{room.roomName}}</td>
+          <td>{{room.capacity}}</td>
+          <td>{{room.available}}</td>
+          <td>
+            <button class="btn btn-warning" *ngIf="room.available" (click)="goToLink('http://localhost:4200/room-slots/'+room.roomId.toString())">View Slots</button>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+</div>
+<app-footer></app-footer>
