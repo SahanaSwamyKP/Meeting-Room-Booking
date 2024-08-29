@@ -45,7 +45,11 @@
   padding: 0.25rem 0,5rem;
  
 }
- 
+.form-group input {
+  width: 100%;
+  max-width: 400px; /* Adjust based on your design */
+  margin-bottom: 20px;
+}
 .btn-group .btn:last-child {
   margin-right: 0;
 }

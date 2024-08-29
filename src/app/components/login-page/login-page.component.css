@@ -5,11 +5,33 @@ body {
  
 }
  
-.heading {
+#heading {
     background: #0e4b6e;
     padding: 10px 20px;
     border-radius: 2px;
-    color: rgb(202, 177, 37);
+    color: white;
+}
+ 
+ul {
+    text-align: right;
+}
+ 
+.logo {
+    max-height: 50px; /* Adjust the height to fit nicely in the header */
+}
+ 
+.navbar-nav .nav-link,
+.navbar-nav .btn-primary {
+    margin-left: 15px; /* Ensure consistent space between all buttons */
+}
+ 
+.navbar-nav {
+    margin-right: 15px;
+}
+ 
+.navbar-nav .nav-item:last-child .btn {
+    margin-right: 0; /* Optional: Removes extra margin after the last button */
+    
 }
  
 .login-container {

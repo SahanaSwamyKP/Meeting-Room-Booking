@@ -6,10 +6,7 @@
     <div class="d-flex">
       <ul class="navbar-nav d-flex flex-row align-items-center">
         <li class="nav-item">
-          <button type="submit" class="btn btn-primary me-2" (click)="goToLink('http://localhost:4200/employee-page/my-bookings')">My Booking</button>
-        </li>
-        <li>
-          <button type="submit" class="btn btn-primary" [routerLink]="['change-password']">Change password</button>
+          <button type="submit" class="btn btn-primary me-2" (click)="goToLink('http://localhost:4200/employee-page/'+emp.empName+'/'+emp.empId)">My Booking</button>
         </li>
       </ul>
     </div>
@@ -24,13 +21,13 @@
         <div class="carousel-item active">
             <img src="https://th.bing.com/th/id/R.ff3be19ebea75c72d7fd8ac60ea78608?rik=AKHdPWCm7sR53g&riu=http%3a%2f%2fgetwallpapers.com%2fwallpaper%2ffull%2f1%2f8%2f1%2f465351.jpg&ehk=gTiwWaizscf0N%2fARLGhMtzE5LXZk1DMRHhdwFkriXAI%3d&risl=&pid=ImgRaw&r=0" class="d-block w-100" alt="Image 1">
             <div class="carousel-caption d-none d-md-block">
-                <h5>Reserve your rooma and Be Free</h5>
+                <h5>Reserve your rooms and be free</h5>
             </div>
         </div>
         <div class="carousel-item">
             <img src="https://wallpaperaccess.com/full/2889098.jpg" class="d-block w-100" alt="Image 2">
             <div class="carousel-caption d-none d-md-block">
-                <h5>If plan doesn't work change the plan but never the plan but never the goal</h5>
+                <h5>If plan doesn't work change the plan but never the goal</h5>
             </div>
         </div>
         <div class="carousel-item">
@@ -55,7 +52,7 @@
 
     <div class="col-md-3">
       <label for="date" class="form-label">Date</label>
-      <input type="date" class="form-control" id="date" [(ngModel)]="date" name="date" required  #dateInput="ngModel"/>
+      <input type="date" class="form-control" id="date" [min]="todayDate" [(ngModel)]="date" name="date" required  #dateInput="ngModel"/>
       <div *ngIf="dateInput.invalid && dateInput.touched" class="text-danger">
         Date is required.
       </div>
@@ -106,18 +103,18 @@
           </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let room of validRooms">
+        <tr *ngFor="let room of validRooms" [ngStyle]="{'background-color':room.available?'white':'#E78587'}">
           <td>{{room.roomName}}</td>
           <td>{{room.capacity}}</td>
-          <td>{{room.available}}</td>
+          <td>{{room.available?'Yes':'No'}}</td>
           <td>
             <button class="btn btn-warning" *ngIf="room.available" (click)="goToLink('http://localhost:4200/room-slots/'+room.roomId.toString())">View Slots</button>
             <button class="btn btn-success" *ngIf="room.available" (click)="BookSlot(room.roomId)">Book Slot</button>
           </td>
-        </tr><tr *ngFor="let room of invalidRooms" style="background-color: #E78587;" [ngStyle]="{'background-color':room.available?'#E78587':'#E78587'}">
+        </tr><tr *ngFor="let room of invalidRooms" style="background-color: #E78587;" >
           <td>{{room.roomName}}</td>
           <td>{{room.capacity}}</td>
-          <td>{{room.available}}</td>
+          <td>{{room.available?'Yes':'No'}}</td>
           <td>
             <button class="btn btn-warning" *ngIf="room.available" (click)="goToLink('http://localhost:4200/room-slots/'+room.roomId.toString())">View Slots</button>
           </td>

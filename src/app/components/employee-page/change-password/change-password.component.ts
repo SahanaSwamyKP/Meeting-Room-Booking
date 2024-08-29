@@ -20,6 +20,7 @@ export class ChangePasswordComponent {
   constructor(private service: AppService, private router: Router) {
     const obj = localStorage.getItem("loginData");
     if(obj!=null) this.emp = JSON.parse(obj);
+    if(this.emp==null) this.router.navigateByUrl('');
   }
 
   password!: string;
@@ -31,7 +32,6 @@ export class ChangePasswordComponent {
       if (newPassword === confirmPassword) {
         this.emp.empPassword = newPassword;
         this.service.ChangePassword(this.emp).subscribe((res)=>{
-          console.log(res);
           this.router.navigateByUrl('')
         });
       }else {

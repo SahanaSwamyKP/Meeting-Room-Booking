@@ -6,6 +6,7 @@ import { AppService } from '../../../../app.service';
 import { FooterComponent } from '../../../footer/footer.component';
 import { HeaderComponent } from '../../../header/header.component';
 import { EmpTab } from '../../../../models/emp-tab';
+import { EmailTest } from '../../../login-page/login-page.component';
 
 @Component({
   selector: 'app-edit-employee',
@@ -32,7 +33,8 @@ export class EditEmployeeComponent implements OnInit {
  
   async ngOnInit(): Promise<void> {
     //this.employee=this.employeeService.setEmployeeData(this.employee);
- 
+    if(localStorage.getItem("loginData")==null) this.router.navigateByUrl('');
+    
     (await this.service.GetAllEmp()).subscribe((emp: EmpTab[])=>{
       this.employees=emp;
     });
@@ -51,9 +53,13 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   async onSave() {
-    (await this.service.UpdateEmployee(this.employee)).subscribe((res: any)=>{
-      alert(res);
-    });
+    if(!EmailTest.Test(this.employee.empEmail)){
+      alert("Enter Correct Format Email");
+    }else{
+      (await this.service.UpdateEmployee(this.employee)).subscribe((res: any)=>{
+        alert(res);
+      });
+    }
   }
 }
 //}

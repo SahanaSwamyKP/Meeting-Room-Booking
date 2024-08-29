@@ -1,5 +1,5 @@
 /* Center the container content */
-.employee-details {
+.room-details {
   text-align: center;
 }
  
@@ -17,6 +17,12 @@
 .btn-group .btn:last-child {
   margin-right: 0;
 }
+.form-group input {
+  width: 100%;
+  max-width: 400px; /* Adjust based on your design */
+  margin-bottom: 20px;
+}
+ 
  
 /* Icon spacing adjustment */
 .btn .fa {

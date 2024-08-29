@@ -10,25 +10,28 @@
     <table>
         <thead>
             <tr>
+                <th>Booked by</th>
                 <th>Room Name</th>
-                <th>booked by</th>
                 <th>Booking Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
                 <th>Status</th>
-                <th>Delete</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
             <!-- #FFFFA7 - pale yellow, #98FB98 - pale green, #E78587 - pale red -->
-            <tr *ngFor="let slot of DispSlots | keyvalue" [ngStyle]="{'background-color': slot.key.active?(cur_date==slot.key.date)?(cur_time>slot.key.sTime)?(cur_time>slot.key.eTime)?'#E78587':'#98FB98':'#FFFFA7':(cur_date>slot.key.date)?'#E78587':'#FFFFA7':'#E78587'}">
-                <td>{{slot.value.roomName}}</td>
+            <tr *ngFor="let slot of DispSlots | keyvalue" [ngStyle]="{'background-color':slot.value.available?slot.key.active?(cur_date==slot.key.date)?(cur_time>slot.key.sTime)?(cur_time>slot.key.eTime)?'#E78587':'#98FB98':'#FFFFA7':(cur_date>slot.key.date)?'#E78587':'#FFFFA7':'#E78587':'#828282'}">
                 <td>{{user.empName}}</td>
+                <td>{{slot.value.roomName}}</td>
                 <td>{{slot.key.date}}</td>
                 <td>{{slot.key.sTime}}</td>
                 <td>{{slot.key.eTime}}</td>
-                <td>{{slot.key.active?(cur_date==slot.key.date)?(cur_time>slot.key.sTime)?(cur_time>slot.key.eTime)?'Ended':'Ongoing':'Upcoming':(cur_date>slot.key.date)?'Ended':'Upcoming':'Ended'}}</td>
-                <td *ngIf="slot.key.active==true"><button class="btn btn-danger" (click)="OnDelete(slot.key.slotId)">Delete</button></td>
+                <td>{{slot.key.active?slot.value.available?(cur_date==slot.key.date)?(cur_time>slot.key.sTime)?(cur_time>slot.key.eTime)?'Ended':'Ongoing':'Upcoming':(cur_date>slot.key.date)?'Ended':'Upcoming':'Room Unavailabe':'Ended'}}</td>
+                <td *ngIf="slot.key.active==true">
+                    <button class="btn btn-warning" *ngIf="(slot.key.date==cur_date && emp.empId==user.empId && slot.key.eTime>cur_time && slot.key.sTime<=cur_time)" (click)="OnConfirm(slot.key.slotId)">Confirm</button>
+                    <button class="btn btn-danger" (click)="OnDelete(slot.key)">Cancel</button>
+                </td>
             </tr>
         </tbody>
     </table>

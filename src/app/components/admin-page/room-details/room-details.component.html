@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="room-container">
-  <div class="employee-details text-center">
+  <div class="roomtext-center">
  
     <div class="heading d-flex align-items-center justify-content-between" id="heading">
       <h2 class="text-center mb-4" style="font-family: 'Times New Roman', Times, serif;">Room Details</h2>
@@ -16,6 +16,9 @@
         </ul>
       </div>
     </div>
+    <div class="form-group mb-3">
+      <input type="text" class="form-control" placeholder="Search by name, capacity, availability" [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()">
+    </div>
     <table >
       <thead>
         <tr>
@@ -26,7 +29,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let room of rooms"  [ngStyle]="{'background-color': room.available ? 'white' : '#E78587'}">
+        <tr *ngFor="let room of filteredRooms"  [ngStyle]="{'background-color': room.available ? 'white' : '#E78587'}">
           
           <td>{{ room.roomName }}</td>
           <td>{{ room.capacity }}</td>

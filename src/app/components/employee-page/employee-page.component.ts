@@ -10,6 +10,11 @@ import { SlotTab } from '../../models/slot-tab';
 import { RoomTab } from '../../models/room-tab';
 import { DateObj, FormatDate, JsonDataStore } from '../admin-page/slot-history/slot-history.component';
 import { firstValueFrom } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { ConfirmInfo } from '../../models/confirm-info';
+
+
+const datepipe: DatePipe = new DatePipe('en-US')
 class EmpDateFormat{
   static getDate(date:string){
     const [year,month,day] = date.split('-');
@@ -28,6 +33,7 @@ class EmpDateFormat{
   styleUrl: './employee-page.component.css'
 })
 export class EmployeePageComponent implements OnInit{
+  todayDate = datepipe.transform(new Date(),'yyyy-MM-dd');
   emp!: EmpTab;
   room!: RoomTab;
   capacity!: number;
@@ -44,10 +50,10 @@ export class EmployeePageComponent implements OnInit{
     eTime: "",
     active: true
   }
+  confirmResult: ConfirmInfo = {} as ConfirmInfo;
   date!: string;
   stime!: string;
   etime!: string;
-  
   constructor(private service: AppService,private router:Router){}
   
   async initializeData(){
@@ -66,10 +72,13 @@ export class EmployeePageComponent implements OnInit{
     const obj = localStorage.getItem("loginData");
     if(obj!=null) this.emp = JSON.parse(obj);
     if(this.emp==null) this.router.navigateByUrl('');
+    
+  
     this.initializeData();
   }
   
   async onSearch(){
+    if(localStorage.getItem('loginData')==null) this.router.navigateByUrl('');
     var error = document.getElementById('error')
     this.slot.date=this.date+"T"+this.stime+":00.000Z";
     this.slot.sTime=this.date+"T"+this.stime+":00.000Z";
@@ -123,7 +132,16 @@ export class EmployeePageComponent implements OnInit{
     window.open(url)
   }
 
+
   async BookSlot(roomID: number){
+    if(localStorage.getItem('loginData')==null) this.router.navigateByUrl('');
+    
+    this.confirmResult.slotId=this.AllSlots.length+1;
+    this.confirmResult.empEmail=this.emp.empEmail;
+    this.confirmResult.confirm=false;
+    // go to services and add this confirmInfo post
+    (await this.service.ConfirmReg(this.confirmResult)).subscribe();
+
     (await this.service.GetRoomById(roomID)).subscribe(async (data: RoomTab)=>{
       this.room=data;
       this.slot.date=this.date+"T"+this.stime+":00.000Z";

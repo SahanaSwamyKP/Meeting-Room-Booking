@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AppService } from '../../../../app.service';
 import { HeaderComponent } from '../../../header/header.component';
@@ -20,12 +20,14 @@ export class EditRoomComponent implements OnInit {
  room: any = {};
   constructor(
     private route: ActivatedRoute,
-    private service: AppService
+    private service: AppService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
     const obj = localStorage.getItem("loginData");
     if(obj!=null) this.emp = JSON.parse(obj);
+    if(this.emp==null) this.router.navigateByUrl('');
     const roomId = Number(this.route.snapshot.paramMap.get('roomID'));
     (await this.service.GetRoomById(roomId)).subscribe((data: RoomTab) => {
       this.room = data;
@@ -34,7 +36,7 @@ export class EditRoomComponent implements OnInit {
 
   async saveChanges(): Promise<void> {
     (await this.service.EditRoom(this.room)).subscribe((res: any) => {
-      alert('Room updated Successfully')
+      alert(res);
     });
   }
 }

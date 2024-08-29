@@ -17,6 +17,9 @@ export class HeaderComponent implements OnInit{
     const obj = localStorage.getItem("loginData");
     if(obj!=null) this.emp = JSON.parse(obj);
   }
- 
- 
+
+  logout(){
+    localStorage.clear();
+    this.router.navigateByUrl('');
+  }
 }

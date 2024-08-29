@@ -1,12 +1,12 @@
 <app-header></app-header>
-<div class="admin-background">
 <div class="admin-container">
-  <h2>Welcome to Admin Dashboard!! {{emp.empName}} </h2>
+  <h2>Welcome to Admin Dashboard!!</h2>
+  <h3 style="color: rgb(0, 60, 255);"><em>{{emp.empName}}</em></h3>
   <div class="admin-option">
-    <button [routerLink]="['employee-details']">Employee Details <i class="far fa-id-card"></i></button>
+    <button [routerLink]="['employee-details']">List of employees<i class="far fa-id-card"></i></button>
   </div>
   <div class="admin-option">
-    <button [routerLink]="['room-details']">Room Details <i class="fas fa-angle-double-right"></i></button>
+    <button [routerLink]="['room-details']">List of rooms<i class="fas fa-angle-double-right"></i></button>
   </div>
   <div class="admin-option">
     <button [routerLink]="['slot-history']">Slot History <i class="fas fa-user-circle"></i></button>
@@ -14,10 +14,6 @@
   <div class="admin-option">
     <button [routerLink]="['/employee-page']">Book a Slot <i class="fas fa-bookmark"></i></button>
   </div>
-  <div class="admin-option">
-    <button [routerLink]="['/employee-page/change-password']">Change Password <i class="fas fa-lock"></i></button>
-  </div>
-</div>
 </div>
 <app-footer></app-footer>
  

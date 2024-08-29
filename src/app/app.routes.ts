@@ -18,7 +18,7 @@ export const routes: Routes = [
     {path:'login-page',component:LoginPageComponent},
     {path:'employee-page',component:EmployeePageComponent},
     {path:'employee-page/change-password',component:ChangePasswordComponent},
-    {path:'employee-page/my-bookings',component:MyBookingsComponent},
+    {path:'employee-page/:empName/:empID',component:MyBookingsComponent},
     {path:'room-slots/:roomID',component:RoomSlotsComponent},
     {path:'admin-page',component:AdminPageComponent},
     {path:'admin-page/slot-history',component:SlotHistoryComponent},

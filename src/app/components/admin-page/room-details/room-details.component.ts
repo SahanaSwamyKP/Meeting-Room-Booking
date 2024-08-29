@@ -18,19 +18,37 @@ import { EmpTab } from '../../../models/emp-tab';
 export class RoomDetailsComponent implements OnInit{
   rooms!: RoomTab[];
   emp!: EmpTab;
-  constructor(private service: AppService,private route: Router) {}
+  constructor(private service: AppService,private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     const obj = localStorage.getItem("loginData");
     if(obj!=null) this.emp = JSON.parse(obj);
-
+    if(this.emp==null) this.router.navigateByUrl('');
+    
     (await this.service.GetAllRoom()).subscribe((res: any)=>{
       this.rooms=res;
       this.rooms.sort((a,b)=>{
         if(a.capacity>b.capacity) return 1;
         else return -1;
       })
+      this.filteredRooms = this.rooms.slice(); // Initialize filteredRooms
+      this.applyFilter(); // Apply filter on initialization
     })
+  }
+
+  searchTerm:string="";
+  filteredRooms!: RoomTab[];
+  applyFilter(): void {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredRooms = this.rooms.filter(room =>
+      room.roomName.toLowerCase().includes(term) ||
+      room.capacity.toString().includes(term) ||
+      (room.available ? 'yes' : 'no').includes(term)
+    );
+    this.filteredRooms.sort((a, b) => {
+      // Optional: Define your sort criteria here if needed
+      return a.roomName.localeCompare(b.roomName);
+    });
   }
 
   async deleteRoom(roomId:number):Promise<void>{
@@ -38,8 +56,8 @@ export class RoomDetailsComponent implements OnInit{
     {
       (await this.service.DeleteRoom(roomId)).subscribe((res)=>
       {
-        console.log(res);
         this.rooms=this.rooms.filter(room=>room.roomId!==roomId);
+        this.applyFilter();
       })
     }
     this.ngOnInit();

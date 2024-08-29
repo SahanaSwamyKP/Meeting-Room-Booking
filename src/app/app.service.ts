@@ -4,6 +4,8 @@ import { EmpTab } from './models/emp-tab';
 import { Observable } from 'rxjs';
 import { SlotTab } from './models/slot-tab';
 import { RoomTab } from './models/room-tab';
+import { ConfirmInfo } from './models/confirm-info';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -87,5 +89,21 @@ export class AppService {
   async AddRoom(room: RoomTab): Promise<Observable<any>>{
     return await this.httpClient.post(this.baseAddress+"/Rooms",JSON.stringify(room),this.httpOptions);
   }
-  //////////////
+  //////////////Confirmation Service
+  //post confirmation data; post(confinfo : obj)
+  confirmAddress = "http://localhost:5155/api/ConfirmInfos";
+  
+  //  getall
+  GetAllInfo(): Observable<ConfirmInfo[]>{
+    return this.httpClient.get<ConfirmInfo[]>(this.confirmAddress,this.httpOptions);
+  }
+  // putconfirm
+  ConfirmDone(Confirms: ConfirmInfo): Observable<any>{
+    return this.httpClient.put(this.confirmAddress,JSON.stringify(Confirms),this.httpOptions);
+  }
+  // postconfirm
+  async ConfirmReg(Confirm: ConfirmInfo): Promise<Observable<any>>{
+    return this.httpClient.post(this.confirmAddress,JSON.stringify(Confirm),this.httpOptions);
+  }
+  /////////////
 }

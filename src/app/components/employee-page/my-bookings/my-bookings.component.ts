@@ -13,8 +13,30 @@ import { JsonDataStore } from '../../admin-page/slot-history/slot-history.compon
 
 import { DatePipe } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
-import { error } from 'jquery';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmInfo } from '../../../models/confirm-info';
 const datepipe: DatePipe = new DatePipe('en-US')
+
+export class Get15Min{
+  static adding15min(start_time:string):string{
+    const [hours, minutes, seconds] = start_time.split(':').map(Number);
+  
+    let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    // Add 15 minutes (900 seconds)
+    totalSeconds += 900;
+    // Calculate the new hours, minutes, and seconds
+    const newHours = Math.floor(totalSeconds / 3600) % 24; // Modulo 24 to handle overflow beyond 24 hours
+    const newMinutes = Math.floor((totalSeconds % 3600) / 60);
+    const newSeconds = totalSeconds % 60;
+    // Format the new time as "HH:mm:SS"
+    const formattedTime = 
+        String(newHours).padStart(2, '0') + ':' + 
+        String(newMinutes).padStart(2, '0') + ':' + 
+        String(newSeconds).padStart(2, '0');
+  
+    return formattedTime;
+  }
+}
 
 @Component({
   selector: 'app-my-bookings',
@@ -24,7 +46,7 @@ const datepipe: DatePipe = new DatePipe('en-US')
   styleUrl: './my-bookings.component.css'
 })
 export class MyBookingsComponent implements OnInit{
-  constructor(private service:AppService){}
+  constructor(private service:AppService,private route:ActivatedRoute,private router :Router){}
   
   cur_date: string = FormatDate.getDate(new Date().toJSON());
   cur_time: string = FormatDate.getTime(new Date().toJSON());
@@ -33,10 +55,25 @@ export class MyBookingsComponent implements OnInit{
   EmpSlots: SlotTab[] = [];
   AllRooms: RoomTab[] = [];
   DispSlots = new Map<SlotTab,RoomTab>();
-
+  AllconfirmData: ConfirmInfo[] = [];
   async initializeData(){
     try{
-      const slotsResponse = firstValueFrom(await this.service.GetAllSlots())
+      const idParam = this.route.snapshot.paramMap.get('empID');
+      if(idParam!==null)
+      {
+        const id = parseInt(idParam, 10);
+        if (id > 0) {
+          (await this.service.GetEmpID(id)).subscribe((element: EmpTab)=>{
+            this.user=element
+          })
+        }else {
+          console.error("Invalid ID parameter:", idParam);
+        }
+      }
+      const confirmResponse = firstValueFrom(await this.service.GetAllInfo());
+      this.AllconfirmData = (await confirmResponse);
+      
+      const slotsResponse = firstValueFrom(await this.service.GetAllSlots());
       this.AllSlots = (await slotsResponse).sort((a,b)=>(a.date>=b.date?a.date==b.date?a.sTime>=b.sTime?a.sTime==b.sTime?a.eTime>b.eTime?-1:1:-1:1:-1:1));
       
       const roomsResponse = firstValueFrom(await this.service.GetAllRoom())
@@ -54,7 +91,6 @@ export class MyBookingsComponent implements OnInit{
         slot.eTime = await FormatDate.getTime(slot.eTime);
         this.AllRooms.forEach(async room=>{
           if(slot.roomId==room.roomId && slot.empId==this.user.empId){
-            if(room.available==false) slot.active=false;
             this.DispSlots.set(slot,room);
           }
         })
@@ -64,41 +100,61 @@ export class MyBookingsComponent implements OnInit{
       console.error("Error initializing data",error)
     }
   }
+
+  emp!: EmpTab;
+  //Confirmation
+  OnConfirm(slotID:number){
+    //put to update Confirm's_bool
+    this.AllconfirmData.forEach((confirmData: ConfirmInfo)=>{
+      if(confirmData.confirm==false && slotID==confirmData.slotId){
+        confirmData.confirm=true;
+        this.service.ConfirmDone(confirmData).subscribe();
+        alert("confirmed your booking")
+      }else if(slotID==confirmData.slotId){
+        alert("already confirmed");
+      }
+    })
+  }
+
   async ngOnInit(): Promise<void> {
     const obj = localStorage.getItem("loginData");
-    if(obj!=null) this.user = JSON.parse(obj);
+    if(obj!=null) this.emp = JSON.parse(obj);
+    if(this.emp==null) this.router.navigateByUrl('');
+
     this.initializeData();
+
     setInterval(() => {
       this.setCurDateTime()
     }, 1000);
   }
+
   
+
   async setCurDateTime(){
     var DateTimeC = datepipe.transform(new Date().toLocaleString('en-US', {timeZone: 'Asia/Kolkata'}),'dd-MM-YYYY HH:mm:ss')?.split(' ')
     if(DateTimeC) this.cur_date = DateTimeC[0];
     if(DateTimeC) this.cur_time = DateTimeC[1];
     this.AllSlots.forEach(element => {
       if(element.active && this.cur_date >= element.date && element.eTime <= this.cur_time){
-        this.OnDelete(element.slotId);
+        this.OnDelete(element);
+      }
+      if(element.active && this.cur_date == element.date && Get15Min.adding15min(element.sTime) <= this.cur_time){
+        this.AllconfirmData.forEach(confirmData => {
+          if(confirmData.confirm==false && confirmData.slotId==element.slotId){
+            this.OnDelete(element);
+          }
+        });
       }
     })
   } 
   
-  async OnDelete(slotId: number) {
-    this.AllSlots.forEach(async element => {
-      if(element.slotId==slotId && element.active==true){
-        element.active=false;
-        element.sTime = JsonDataStore[element.slotId].JsonSTime;
-        element.date = JsonDataStore[element.slotId].JsonDate;
-        element.eTime = JsonDataStore[element.slotId].JsonETime;
-        var data = await this.service.DeleteSlot(element);
-        data.subscribe((res:any)=>{
-          console.log(res);
-        })
-      }
-    });
-    this.EmpSlots = []
+  async OnDelete(element: SlotTab) {
+    element.active=false;
+    element.sTime = JsonDataStore[element.slotId].JsonSTime;
+    element.date = JsonDataStore[element.slotId].JsonDate;
+    element.eTime = JsonDataStore[element.slotId].JsonETime;
+    (await this.service.DeleteSlot(element)).subscribe()
+    this.DispSlots.clear();
     this.ngOnInit();
   }
-
 }

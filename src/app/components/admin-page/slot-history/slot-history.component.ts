@@ -9,6 +9,9 @@ import { EmpTab } from '../../../models/emp-tab';
 import { DatePipe } from '@angular/common';
 import { RoomTab } from '../../../models/room-tab';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
+import { ConfirmInfo } from '../../../models/confirm-info';
+import { Get15Min } from '../../employee-page/my-bookings/my-bookings.component';
 const datepipe: DatePipe = new DatePipe('en-US')
 
 export class FormatDate{
@@ -24,6 +27,8 @@ export class FormatDate{
 export type DateObj = {JsonDate : string,JsonSTime: string,JsonETime: string};
 export type MapType = {[id: number]: DateObj};
 export const JsonDataStore : MapType = {};
+
+
 @Component({
   selector: 'app-slot-history',
   standalone: true,
@@ -32,7 +37,7 @@ export const JsonDataStore : MapType = {};
   styleUrl: './slot-history.component.css'
 })
 export class SlotHistoryComponent implements OnInit{
-  constructor(private service:AppService){}
+  constructor(private service:AppService,private router:Router){}
   
   AllSlots = [] as SlotTab[];
   AllEmp = [] as EmpTab[];
@@ -41,20 +46,32 @@ export class SlotHistoryComponent implements OnInit{
   cur_date!: string;
   cur_time!: string;
   DispSlot = new Map<SlotTab,[EmpTab: EmpTab,RoomTab: RoomTab]>()
+  AllconfirmData!: ConfirmInfo[];
   setCurDateTime(){
     var DateTimeC = datepipe.transform(new Date().toLocaleString('en-US', {timeZone: 'Asia/Kolkata'}),'dd-MM-YYYY HH:mm:ss')?.split(' ')
     if(DateTimeC) this.cur_date = DateTimeC[0];
     if(DateTimeC) this.cur_time = DateTimeC[1];
 
     this.AllSlots.forEach(element => {
-      if(element.active && this.cur_date >= element.date && element.eTime <= this.cur_time){
-        this.OnDelete(element.slotId);
+      if(element.active){
+        if(this.cur_date > element.date) this.OnDelete(element);
+        if(this.cur_date >= element.date && element.eTime <= this.cur_time) this.OnDelete(element);
+      }if(element.active && this.cur_date == element.date && Get15Min.adding15min(element.sTime) <= this.cur_time){
+        this.AllconfirmData.forEach(confirmData => {
+          if(confirmData.confirm==false && confirmData.slotId==element.slotId){
+            this.OnDelete(element);
+          }
+        });
       }
     })
   }
 
   async initializeData() {
     try {
+      
+      const confirmResponse = firstValueFrom(await this.service.GetAllInfo());
+      this.AllconfirmData = (await confirmResponse);
+
       const slotsResponse = firstValueFrom(await this.service.GetAllSlots());
       this.AllSlots = (await slotsResponse).sort((a:SlotTab, b:SlotTab) => (
         a.date >= b.date ? (a.date == b.date ? (a.sTime >= b.sTime ? (a.sTime == b.sTime ? (a.eTime > b.eTime ? -1 : 1) : -1) : 1) : -1) : 1
@@ -93,6 +110,7 @@ export class SlotHistoryComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     const obj = localStorage.getItem("loginData");
     if(obj!=null) this.emp = JSON.parse(obj);
+    if(this.emp==null) this.router.navigateByUrl('');
     this.AllEmp = [];
     this.AllRooms = [];
     this.AllSlots = [];
@@ -103,16 +121,13 @@ export class SlotHistoryComponent implements OnInit{
     }, 1000);
   }
   
-  async OnDelete(slotID: Number){
-    this.AllSlots.forEach(async element => {
-      if(element.slotId==slotID && element.active==true){
-        element.active=false;
-        element.sTime = JsonDataStore[element.slotId].JsonSTime;
-        element.date = JsonDataStore[element.slotId].JsonDate;
-        element.eTime = JsonDataStore[element.slotId].JsonETime;
-        (await this.service.DeleteSlot(element)).subscribe();
-      }
-    });
+  async OnDelete(element: SlotTab){
+    element.active=false;
+    element.sTime = JsonDataStore[element.slotId].JsonSTime;
+    element.date = JsonDataStore[element.slotId].JsonDate;
+    element.eTime = JsonDataStore[element.slotId].JsonETime;
+    (await this.service.DeleteSlot(element)).subscribe();
+    this.DispSlot.clear();
     this.ngOnInit();
   }
 

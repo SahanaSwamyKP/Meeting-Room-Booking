@@ -11,12 +11,12 @@
         <thead>
             <tr>
                 <th>Room Name</th>
-                <th>booked by</th>
+                <th>Booked by</th>
                 <th>Booking Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
                 <th>Status</th>
-                <th>Delete</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@
                 <td>{{slot.key.sTime}}</td>
                 <td>{{slot.key.eTime}}</td>
                 <td>{{slot.key.active?(cur_date==slot.key.date)?(cur_time>slot.key.sTime)?(cur_time>slot.key.eTime)?'Ended':'Ongoing':'Upcoming':(cur_date>slot.key.date)?'Ended':'Upcoming':'Ended'}}</td>
-                <td *ngIf="slot.key.active==true && (this.user.empId==slot.value.empId || this.user.empRole=='Admin')"><button class="btn btn-danger" (click)="OnDelete(slot.key.slotId)">Delete</button></td>
+                <td *ngIf="slot.key.active==true && (this.user.empId==slot.value.empId || this.user.empRole=='Admin')"><button class="btn btn-danger" (click)="OnDelete(slot.key)">Cancel</button></td>
             </tr>
         </tbody>
     </table>

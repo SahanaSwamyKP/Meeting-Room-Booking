@@ -29,6 +29,7 @@ export class AddRoomComponent implements OnInit{
   ngOnInit(): void {
     const obj = localStorage.getItem("loginData");
     if(obj!=null) this.emp = JSON.parse(obj);
+    if(this.emp==null) this.router.navigateByUrl('');
   }
   async onSubmit()
   {
@@ -37,7 +38,7 @@ export class AddRoomComponent implements OnInit{
     }else{
       this.room.available=false;
     }
-    console.log(this.room);
+    
     (await this.service.AddRoom(this.room)).subscribe((res)=>
     {
       alert(res);

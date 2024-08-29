@@ -9,7 +9,12 @@ import { AuthService } from '../../auth.service';
 import { JwtInterceptor } from '../../jwt.service';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-
+export class EmailTest{
+  static Test(email: string): boolean{
+    const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/;  // Ensures the email ends with .com
+    return emailRegex.test(email);
+  }
+}
 @Component({
   selector: 'app-login-page',
   standalone: true,
@@ -34,18 +39,16 @@ export class LoginPageComponent implements OnInit{
     localStorage.clear();
   }
 
-  Test(email: string): boolean{
-    const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/;  // Ensures the email ends with .com
-    return emailRegex.test(email);
-  }
+  
   async OnSubmit() {
     var error = document.getElementById('error');
-    if(!this.Test(this.emp.empEmail)){
+    if(!EmailTest.Test(this.emp.empEmail)){
       if(error) error.innerText = "Enter valid email";
       return;
     }
 
     (await (this.authService.getJwtToken(this.emp))).subscribe(async (res: any)=>{
+      console.log(res);
       var data = await this.service.GetEmpByEmail(this.emp);
       data.subscribe((res:any)=>{
         if(res=='Incorrect password' || res=='Email not found! Contact Admin'){
@@ -59,7 +62,8 @@ export class LoginPageComponent implements OnInit{
           this.router.navigateByUrl('/employee-page');
         }
       });
-      
     });
+    
+      
   }
 }

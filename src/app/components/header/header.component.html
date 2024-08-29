@@ -10,7 +10,10 @@
             <pre>{{emp.empEmail}}</pre>
         </li>
         <li class="nav-item">
-          <button  class="btn btn-primary " [routerLink]="['']"><i class="fas fa-arrow-left"></i>Logout</button>
+          <button  class="btn btn-primary " (click)="logout()"><i class="fas fa-arrow-left"></i>Logout</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-primary" [routerLink]="['/employee-page/change-password']">Change Password <i class="fas fa-lock"></i></button>
         </li>
       </ul>
     </div>
