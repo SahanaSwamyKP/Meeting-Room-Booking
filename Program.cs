@@ -49,7 +49,7 @@ namespace MeetingsAPI
 			});
 			builder.Services.AddTransient<IEmployeeServices, EmployeeServices>();
 			builder.Services.AddTransient<IRoomServices, RoomServices>();
-			builder.Services.AddTransient<SlotServices>();
+			builder.Services.AddTransient<ISlotServices,SlotServices>();
 			//adding cors
 			builder.Services.AddCors(options =>
 			{
