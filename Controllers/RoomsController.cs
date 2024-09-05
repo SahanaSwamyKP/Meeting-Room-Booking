@@ -28,7 +28,7 @@ namespace MeetingsAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				return new JsonResult(BadRequest(ex.Message));
+				return new JsonResult(ex.Message);
 			}
 			return new JsonResult("Edit Successfull");
 		}
@@ -56,7 +56,7 @@ namespace MeetingsAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return new JsonResult(ex.Message);
 			}
 
 			return new JsonResult("Added Successfully");

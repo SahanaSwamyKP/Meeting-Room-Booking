@@ -39,7 +39,7 @@ namespace CoreWebApi.Controllers
 					}
 					else
 					{
-						return Unauthorized();
+						return new JsonResult(Unauthorized());
 					}
 				}
 				catch (Exception ex)

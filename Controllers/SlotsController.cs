@@ -9,9 +9,9 @@ namespace MeetingsAPI.Controllers
 	[ApiController]
 	public class SlotsController : ControllerBase
 	{
-		private readonly SlotServices slotServices;
+		private readonly ISlotServices slotServices;
 		private readonly ProjectContext _projectContext;
-		public SlotsController(ProjectContext projectContext, SlotServices slotServices) { this.slotServices = slotServices; this._projectContext = projectContext; }
+		public SlotsController(ProjectContext projectContext, ISlotServices slotServices) { this.slotServices = slotServices; this._projectContext = projectContext; }
 
 		private List<RoomDto> _rooms = new List<RoomDto>();
 		[HttpGet]
