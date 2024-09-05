@@ -127,6 +127,12 @@ namespace MeetingsAPI.Services
 
 		public void UpdateEmployee(EmpDto emp)
 		{
+			if (emp == null) throw new Exception("Employee Cannot be NULL");
+			if (emp.EmpRole != "Admin" && emp.EmpRole != "Employee") throw new Exception("Employee Role Doesn't Exist");
+
+			var empl = GetEmailForChange(emp);
+			if (empl != null && empl.EmpId!=emp.EmpId) throw new Exception("Employee With This Email Already Exist");
+
 			EmpDto employee;
 			try
 			{

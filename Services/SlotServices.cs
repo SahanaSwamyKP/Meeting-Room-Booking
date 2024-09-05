@@ -4,7 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MeetingsAPI.Services
 {
-	public class SlotServices
+	public interface ISlotServices
+	{
+		void AddSlot(SlotDto slotDto);
+		void delete(SlotDto slotDto);
+		List<SlotDto> GetSlots();
+		List<SlotDto> GetSlotsByRoom(RoomDto room);
+		void GetUnavailable(SlotDto slotDto);
+	}
+
+	public class SlotServices : ISlotServices
 	{
 		private readonly ProjectContext _projectContext;
 
@@ -54,7 +63,7 @@ namespace MeetingsAPI.Services
 
 			if (slotDto == null) throw new Exception("Empty Slot Error");
 			var slot = _projectContext.SlotTabs.FirstOrDefault(x => x.Date == DateOnly.FromDateTime(slotDto.Date) && x.RoomId == slotDto.RoomId && (TimeOnly.FromDateTime(slotDto.STime) >= x.STime && TimeOnly.FromDateTime(slotDto.STime) <= x.ETime));
-			if (slot != null) throw new Exception("Slot in this room is already booked");
+			if (slot != null && slot.Active) throw new Exception("Slot in this room is already booked");
 
 			SlotTab new_slot = new();
 			new_slot.SlotMap(slotDto);

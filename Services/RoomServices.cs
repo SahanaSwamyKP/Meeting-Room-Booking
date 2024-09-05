@@ -19,8 +19,18 @@ namespace MeetingsAPI.Services
 
 		public void EditRoom(RoomDto room)
 		{
-			var rec = GetRoombyId(room.RoomId) ?? throw new Exception("Room Doesn't Exist To Edit");
 			if (room.Capacity != 10 && room.Capacity != 5 && room.Capacity != 15) throw new Exception("Room Capacity Error");
+
+
+			foreach (var existRoom in GetRooms())
+			{
+				if (existRoom.RoomName.ToLower() == room.RoomName.ToLower() && existRoom.RoomId!=room.RoomId)
+				{
+					throw new Exception("Room with this name Already Exists");
+				}
+			}
+
+			var rec = GetRoombyId(room.RoomId) ?? throw new Exception("Room Doesn't Exist To Edit");
 			rec.RoomName = room.RoomName;
 			rec.Available = room.Available;
 			rec.Capacity = room.Capacity;
@@ -61,6 +71,16 @@ namespace MeetingsAPI.Services
 		{
 			if (room == null) throw new Exception("Room Cannont be NULL");
 			if (room.Capacity != 10 && room.Capacity != 5 && room.Capacity != 15) throw new Exception("Room Capacity Error");
+			if (!room.Available) throw new Exception("Room Availability Error");
+
+			foreach(var existRoom in GetRooms())
+			{
+				if (existRoom.RoomName.ToLower() == room.RoomName.ToLower())
+				{
+					throw new Exception("Room with this name Already Exists");
+				}
+			}
+
 			var roomD = new RoomTab();
 			roomD.RoomMap(room);
 			_projectContext.RoomTabs.Add(roomD);
